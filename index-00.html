@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07070b">
+<title>Чамд зориулав</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#07070b; --ink:#f3efe9; --soft:#bdb7ae; --glow:rgba(255,255,255,.14); --line:rgba(255,255,255,.16);
+  --serif:'Cormorant Garamond','Playfair Display',Georgia,'Times New Roman',serif;
+  --body:'Lora',Georgia,'Times New Roman',serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:clamp(16px,2.4vw,19px);line-height:1.85;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(130,110,170,.22),transparent 60%),radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.06),transparent 55%);
+  background-attachment:fixed}
+.aur{position:fixed;z-index:0;pointer-events:none;width:80vmax;height:80vmax;border-radius:50%}
+.a1{left:-35vmax;top:-35vmax;background:radial-gradient(circle,rgba(196,140,205,.30),transparent 65%);animation:dr1 38s ease-in-out infinite alternate}
+.a2{right:-40vmax;bottom:-40vmax;background:radial-gradient(circle,rgba(255,186,140,.22),transparent 65%);animation:dr2 46s ease-in-out infinite alternate}
+@keyframes dr1{to{transform:translate(14vmax,10vmax)}}
+@keyframes dr2{to{transform:translate(-12vmax,-14vmax)}}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1}
+section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12vh 24px;text-align:center}
+.wrap{max-width:640px;width:100%;text-shadow:0 0 18px #07070b,0 0 36px #07070b}
+#hero .wrap{position:relative;z-index:0}
+#hero .wrap::before{content:"";position:absolute;inset:-14% -10%;z-index:-1;background:radial-gradient(ellipse at center,rgba(7,7,11,.7),rgba(7,7,11,.35) 55%,transparent 75%)}
+.lead{color:#d9d3ca}
+h1,h2{font-family:var(--serif);font-weight:300;margin:0;line-height:1.15;text-shadow:0 0 40px var(--glow),0 0 22px #07070b}
+h1{font-size:clamp(2.3rem,9vw,4.6rem)}
+h1 em,h2 em{font-style:italic;font-weight:500}
+h2{font-size:clamp(1.9rem,6vw,3rem);margin-bottom:44px}
+.w{display:inline-block;opacity:0;transform:translateY(.45em);filter:blur(8px);animation:wi 1.5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*.3s + .5s)}
+@keyframes wi{to{opacity:1;transform:none;filter:none}}
+.lead{font-family:var(--serif);font-size:clamp(1.15rem,3.6vw,1.45rem);font-style:italic;color:var(--soft);margin:34px auto 0;max-width:34ch}
+.hint{margin-top:56px;font-family:var(--serif);letter-spacing:.3em;font-size:.75rem;color:var(--soft);animation:bob 2.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px);opacity:.5}}
+.reveal{opacity:0;transform:translateY(22px);filter:blur(6px);transition:opacity 1.8s ease,transform 1.8s ease,filter 1.8s ease}
+.reveal.in{opacity:1;transform:none;filter:none}
+.thought p{margin:0 0 30px}
+.thought p.big{font-family:var(--serif);font-size:clamp(1.4rem,4.4vw,1.9rem);font-style:italic;line-height:1.5}
+.sep{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px auto 38px;color:var(--soft);font-size:1.1rem}
+.sep::before,.sep::after{content:"";width:min(90px,22vw);height:1px;background:linear-gradient(90deg,transparent,var(--line))}
+.sep::after{transform:scaleX(-1)}
+.btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center;margin:34px 0 8px;min-height:64px}
+button{font-family:var(--serif);font-size:1.15rem;letter-spacing:.06em;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:14px 28px;min-height:48px;cursor:pointer;touch-action:manipulation;transition:background .4s,box-shadow .4s,transform .5s cubic-bezier(.3,1.4,.5,1),border-color .4s;backdrop-filter:blur(6px)}
+button:hover{background:rgba(255,255,255,.12);box-shadow:0 0 30px rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+button:active{transform:scale(.96)}
+#yes{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4)}
+#no.fly{position:fixed;z-index:50;transition:left .38s cubic-bezier(.3,1.3,.5,1),top .38s cubic-bezier(.3,1.3,.5,1),background .4s}
+#ph{display:none}
+.msg{min-height:2.2em;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:1.1rem;margin:10px 0 0}
+.box{margin-top:46px;text-align:left}
+label{display:block;font-family:var(--serif);letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:var(--soft);margin-bottom:12px;text-align:center}
+textarea{width:100%;min-height:150px;resize:vertical;font:inherit;font-size:1rem;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:18px;padding:18px;outline:none;transition:border-color .4s,box-shadow .4s}
+textarea:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 36px rgba(255,255,255,.1)}
+.center{text-align:center;margin-top:18px}
+.thanks{display:none;margin-top:30px;padding:26px 22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04);font-family:var(--serif);font-size:1.25rem;font-style:italic}
+.thanks.show{display:block;animation:fadeup 1.4s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}}
+.petal{position:fixed;bottom:-30px;z-index:60;pointer-events:none;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.9);animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-115vh) rotate(260deg);opacity:0}}
+footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font-family:var(--serif);font-style:italic;color:var(--soft)}
+@media (prefers-reduced-motion:reduce){.reveal,.w{transition:none;animation:none;opacity:1;transform:none;filter:none}.hint,.aur{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="aur a1"></div><div class="aur a2"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+
+<section id="hero">
+  <div class="wrap">
+    <h1 aria-label="Март гэж хэлсэн ч, би мартсангүй">
+      <span class="w" style="--i:0">Март</span> <span class="w" style="--i:1">гэж</span> <span class="w" style="--i:2">хэлсэн</span> <span class="w" style="--i:3">ч,</span><br>
+      <em><span class="w" style="--i:4">би</span> <span class="w" style="--i:5">мартсангүй</span></em>
+    </h1>
+    <p class="lead reveal" data-d="2.8">Энэ хуудсыг ганцхан чамд зориулж чин сэтгэлээсээ бичлээ.</p>
+    <div class="hint reveal" data-d="3.4">ДООШ УНШААРАЙ ↓</div>
+  </div>
+</section>
+
+<section id="thoughts">
+  <div class="wrap thought">
+    <h2 class="reveal">Миний <em>бодол</em></h2>
+    <p class="reveal drop">Чи надад март гэж хэлсэн. Тэр үгийг сонсоход сэтгэл хоосроод цээж хүндүүрлээд яах аа мэдэхгүй болсон.</p>
+    <p class="reveal">Чамайг таньж мэдэх тусам, чамтай өнгөрүүлсэн мөч бүхэн илүү үнэ цэнэтэй санагдаад болохгүй юм.</p>
+    <div class="sep reveal">✿</div>
+    <p class="big reveal">Яг одоо ингээд бууж өгчихөөр харамсмаар санагдаад байна. Чамайг алдмааргүй байна.</p>
+    <div class="sep reveal">✿</div>
+    <p class="reveal">Хэрэв би алдаа гаргасан бол уучлаарай. </p>
+  </div>
+</section>
+
+<section id="answer">
+  <div class="wrap">
+    <h2 class="reveal">Чиний <em>хариу</em></h2>
+    <p class="reveal" style="margin:0 auto;max-width:36ch;color:var(--soft)">Ямар ч хариу байсан би хүндэтгэнэ. </p>
+    
+    <div class="btns reveal">
+      <button id="yes" type="button">Тийм ээ, ярилцъя</button>
+      <button id="think" type="button">Бодох цаг хэрэгтэй</button>
+      <span id="ph"></span>
+      <button id="no" type="button">Үгүй ээ, март</button>
+    </div>
+    <p class="msg" id="msg" aria-live="polite"></p>
+
+    <!-- Formspree холбогдсон хэсэг (Сонголт болон текстийг хамт явуулна) -->
+    <div class="box reveal">
+      <form action="https://formspree.io/f/xnppbavj" method="POST">
+        <!-- Энд товч дээр дарахад сонгосон утга хадгалагдана -->
+        <input type="hidden" id="selected-choice" name="choice" value="Хариу өгөөгүй">
+        
+        <label for="txt">Чи юу бодож байна?</label>
+        <textarea id="txt" name="message" placeholder="Бодлоо чөлөөтэй бичээрэй..."></textarea>
+        <div class="center"><button id="send" type="submit">Илгээх</button></div>
+      </form>
+      <div class="thanks" id="thanks">
+        <div id="thanksText">Баярлалаа. Энэ хүртэл уншсанд баярлалаа.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>Чин сэтгэлээсээ ✿</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(id){return document.getElementById(id)};
+
+  /* ---------- Reveal ---------- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.2});
+  Array.prototype.forEach.call(document.querySelectorAll('section'),function(sec){
+    Array.prototype.forEach.call(sec.querySelectorAll('.reveal'),function(el,i){
+      var d=el.getAttribute('data-d');
+      el.style.transitionDelay = (d!==null?d:Math.min(i*0.12,0.8))+'s'; io.observe(el);
+    });
+  });
+
+  /* ---------- Canvas: flowers, big hero bloom, sparkles, touch petals ---------- */
+  var cv=$('bg'), ctx=cv.getContext('2d'), hero=$('hero'), W=0,H=0, flowers=[], sparks=[], parts=[], last=0, T0=0, lastMv=0;
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function ease(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
+  function lg(stops){var g=ctx.createLinearGradient(0,0,0,-1);stops.forEach(function(s){g.addColorStop(s[0],s[1])});return g}
+  var PET=[
+    lg([[0,'rgba(255,222,170,.95)'],[.3,'rgba(255,247,240,.9)'],[1,'rgba(255,255,255,.2)']]),
+    lg([[0,'rgba(255,196,214,.95)'],[.35,'rgba(255,236,243,.9)'],[1,'rgba(255,255,255,.2)']]),
+    lg([[0,'rgba(212,198,255,.95)'],[.35,'rgba(240,235,255,.9)'],[1,'rgba(255,255,255,.2)']])
+  ];
+  var GLOW=ctx.createRadialGradient(0,0,0,0,0,1);
+  GLOW.addColorStop(0,'rgba(255,240,250,.6)');GLOW.addColorStop(.4,'rgba(255,225,240,.2)');GLOW.addColorStop(1,'rgba(255,255,255,0)');
+
+  function resize(){
+    var d=Math.min(window.devicePixelRatio||1,2);
+    W=innerWidth; H=innerHeight; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0);
+  }
+  function spawn(preset){
+    var small=W<600, t=Math.random(), x=rnd(.04,.96)*W;
+    flowers.push({x0:x,x1:x+rnd(-50,50),y1:rnd(.2,.78)*H,bend:rnd(-60,60),
+      size:rnd(30,72)*(small?.66:1),n:Math.floor(rnd(7,11)),rot:rnd(0,6.28),
+      ph:rnd(0,6.28),dur:rnd(18,28),life:preset?rnd(.3,.55)*22:0,spin:rnd(-.04,.04),
+      tint:t<.6?0:(t<.8?1:2)});
+  }
+  function initSparks(){
+    sparks=[]; var n=W<600?22:40;
+    for(var i=0;i<n;i++) sparks.push({x:rnd(0,W),y:rnd(0,H),v:rnd(4,16),r:rnd(.6,1.8),ph:rnd(0,6.28),s:rnd(.6,1.6)});
+  }
+  function pt(f,t,time){
+    var cx=(f.x0+f.x1)/2+f.bend, cy=(H+f.y1)/2, u=1-t;
+    var x=u*u*f.x0+2*u*t*cx+t*t*f.x1, y=u*u*H+2*u*t*cy+t*t*f.y1;
+    x+=Math.sin(time*.7+f.ph)*8*t*t; return [x,y];
+  }
+  function petalPath(w){
+    ctx.beginPath(); ctx.moveTo(0,0);
+    ctx.bezierCurveTo(w,-.2,w*.95,-.7,0,-1);
+    ctx.bezierCurveTo(-w*.95,-.7,-w,-.2,0,0);
+  }
+  function leaf(f,tt,s,stem,time,a){
+    if(stem<=tt+.04) return;
+    var g=ease((stem-tt)/.3), p1=pt(f,tt,time), p2=pt(f,tt+.02,time);
+    var ang=Math.atan2(p2[1]-p1[1],p2[0]-p1[0])+Math.PI/2+s*.85;
+    ctx.save(); ctx.translate(p1[0],p1[1]); ctx.rotate(ang); ctx.scale(f.size*.34*g,f.size*.62*g);
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.bezierCurveTo(.9,-.25,.7,-.8,0,-1); ctx.bezierCurveTo(-.7,-.8,-.9,-.25,0,0);
+    ctx.globalAlpha=a*.16; ctx.fillStyle='#fff'; ctx.fill();
+    ctx.globalAlpha=a*.4; ctx.lineWidth=.03; ctx.strokeStyle='#fff'; ctx.stroke();
+    ctx.restore();
+  }
+  function bloom(x,y,R,p,tint,n,rot,time,a){
+    var b0=ease((p-.2)/.3); if(b0<=0) return;
+    ctx.save(); ctx.translate(x,y);
+    ctx.save(); ctx.scale(R*2.3,R*2.3); ctx.globalAlpha=a*.5*b0; ctx.fillStyle=GLOW; ctx.beginPath(); ctx.arc(0,0,1,0,6.2832); ctx.fill(); ctx.restore();
+    var L=[{n:n,len:1,w:.3,al:.55,off:0},{n:n,len:.8,w:.3,al:.7,off:.5},{n:Math.max(5,n-2),len:.56,w:.32,al:.85,off:.25},{n:5,len:.34,w:.36,al:.95,off:0}];
+    for(var l=0;l<L.length;l++){
+      var bl=ease((p-.2-l*.045)/.3); if(bl<=0) continue;
+      var Ly=L[l], len=R*Ly.len, sx=len*(.55+.45*bl), sy=len*(.18+.82*bl);
+      ctx.fillStyle=PET[tint]; ctx.strokeStyle='rgba(255,255,255,.9)';
+      for(var j=0;j<Ly.n;j++){
+        ctx.save(); ctx.rotate(rot+(Ly.off+j)*6.2832/Ly.n+l*.22); ctx.scale(sx,sy);
+        petalPath(Ly.w);
+        ctx.globalAlpha=a*Ly.al*bl; ctx.fill();
+        ctx.lineWidth=.012; ctx.globalAlpha=a*.55*bl; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0,-.08); ctx.lineTo(0,-.85); ctx.lineWidth=.008; ctx.globalAlpha=a*.25*bl; ctx.stroke();
+        ctx.restore();
+      }
+    }
+    var sb=ease((p-.38)/.25);
+    if(sb>0){
+      ctx.globalAlpha=a*sb; ctx.strokeStyle='rgba(255,222,150,.8)'; ctx.fillStyle='rgba(255,214,130,1)'; ctx.lineWidth=.8;
+      var sl=R*.2*sb;
+      for(var k=0;k<12;k++){
+        var an=k*6.2832/12+rot, ex=Math.cos(an)*sl, ey=Math.sin(an)*sl;
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(ex,ey); ctx.stroke();
+        ctx.beginPath(); ctx.arc(ex,ey,Math.max(1,R*.026),0,6.2832); ctx.fill();
+      }
+      ctx.globalAlpha=a*sb*.9; ctx.beginPath(); ctx.arc(0,0,Math.max(1.5,R*.05),0,6.2832); ctx.fill();
+    }
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+  function drawFlower(f,time){
+    var p=f.life/f.dur, stem=ease(p/.28);
+    var a=p>.82?Math.max(0,(1-p)/.18):1; if(a<=0) return;
+    ctx.globalAlpha=a*.5; ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=1.1; ctx.lineCap='round';
+    ctx.beginPath(); var s0=pt(f,0,time); ctx.moveTo(s0[0],s0[1]);
+    for(var i=1;i<=24;i++){var q=pt(f,stem*i/24,time);ctx.lineTo(q[0],q[1]);}
+    ctx.stroke();
+    leaf(f,.38,1,stem,time,a); leaf(f,.64,-1,stem,time,a);
+    if(p<.2){ctx.globalAlpha=1;return;}
+    var tip=pt(f,stem,time), R=f.size*(1+.035*Math.sin(time*.9+f.ph));
+    bloom(tip[0],tip[1],R,p,f.tint,f.n,f.rot+time*f.spin,time,a);
+  }
+  function drawBig(time){
+    var hr=hero.getBoundingClientRect(), cy=hr.top+hr.height*.5;
+    var vis=1-Math.min(1,Math.abs(cy-H/2)/(H*.75)); if(vis<=.02) return;
+    var tb=reduce?99:(time-T0), pb=.2+.5*ease(tb/10);
+    var R=Math.min(W,H)*(W<600?.5:.44)*(1+.02*Math.sin(time*.7));
+    bloom(W/2,cy,R,pb,0,12,time*.015,time,vis*.28);
+  }
+  function drawSparks(dt,time){
+    for(var i=0;i<sparks.length;i++){
+      var s=sparks[i]; if(!reduce){ s.y-=s.v*dt; s.x+=Math.sin(time*.5+s.ph)*.15; if(s.y<-4){s.y=H+4;s.x=rnd(0,W);} }
+      var tw=.25+.55*(.5+.5*Math.sin(time*s.s+s.ph));
+      ctx.globalAlpha=tw*.7; ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.2832); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+  }
+  function drawParts(dt){
+    for(var i=parts.length-1;i>=0;i--){
+      var q=parts[i]; q.life+=dt; if(q.life>=q.dur){parts.splice(i,1);continue;}
+      q.vy+=80*dt; q.vx*=.992; q.x+=q.vx*dt; q.y+=q.vy*dt;
+      ctx.save(); ctx.translate(q.x,q.y); ctx.rotate(q.rot+q.life*q.vr);
+      ctx.scale(q.s*(.3+.7*Math.abs(Math.cos(q.life*3.5+q.ph))),q.s);
+      petalPath(.42); ctx.fillStyle=PET[q.t]; ctx.globalAlpha=(1-q.life/q.dur)*.9; ctx.fill();
+      ctx.lineWidth=.02; ctx.strokeStyle='#fff'; ctx.globalAlpha*=.6; ctx.stroke(); ctx.restore();
+    }
+    ctx.globalAlpha=1;
+  }
+  function sprinkle(x,y,n){
+    if(reduce) return;
+    for(var i=0;i<n&&parts.length<140;i++){
+      var r=Math.random();
+      parts.push({x:x,y:y,vx:rnd(-70,70),vy:rnd(-110,-20),rot:rnd(0,6.28),vr:rnd(-3,3),s:rnd(11,24),life:0,dur:rnd(2,3.4),ph:rnd(0,6.28),t:r<.65?0:(r<.85?1:2)});
+    }
+  }
+  function frame(ts){
+    var dt=Math.min((ts-last)/1000||0,.05); last=ts; var time=ts/1000; if(!T0) T0=time;
+    ctx.clearRect(0,0,W,H);
+    drawSparks(dt,time);
+    drawBig(time);
+    var maxN=W<600?8:13;
+    if(!reduce && flowers.length<maxN && Math.random()<dt*1.1) spawn(false);
+    for(var i=flowers.length-1;i>=0;i--){
+      var f=flowers[i]; if(!reduce) f.life+=dt; drawFlower(f,time);
+      if(f.life>=f.dur) flowers.splice(i,1);
+    }
+    drawParts(dt);
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  resize(); initSparks();
+  addEventListener('resize',function(){resize();initSparks();});
+  var init=W<600?5:9; for(var k=0;k<init;k++) spawn(true);
+  if(reduce){ flowers.forEach(function(f){f.life=f.dur*.5}); frame(0);} else requestAnimationFrame(frame);
+
+  /* touch / click petals */
+  addEventListener('pointerdown',function(e){ sprinkle(e.clientX,e.clientY,9); },{passive:true});
+  addEventListener('pointermove',function(e){
+    var n=performance.now(); if(n-lastMv<90) return; lastMv=n;
+    if(e.pointerType==='mouse'||e.buttons) sprinkle(e.clientX,e.clientY,1);
+  },{passive:true});
+
+  /* ---------- Falling petals ---------- */
+  function rise(n){
+    if(reduce) return;
+    for(var i=0;i<n;i++){
+      var s=document.createElement('span'); s.className='petal'; s.textContent=Math.random()<.5?'✿':'❀';
+      s.style.left=rnd(2,96)+'vw'; s.style.fontSize=rnd(14,34)+'px';
+      s.style.animationDuration=rnd(4,8)+'s'; s.style.animationDelay=rnd(0,1.6)+'s';
+      document.body.appendChild(s); (function(el){setTimeout(function(){el.remove()},10000)})(s);
+    }
+  }
+
+  /* ---------- Buttons & Choice Tracking ---------- */
+  var no=$('no'), ph=$('ph'), yes=$('yes'), think=$('think'), msg=$('msg'), choiceInput=$('selected-choice'), tries=0, lastX=-999, lastY=-999;
+  var lines=[
+    'Хөөх, хурдан юм аа 🙂','Хүрч чадсангүй шүү','Нэг дахин оролдоод үз','Энэ товч нэг л зугтаад байна...',
+    'Үнэхээр үгүй гэж үү?','Тэр товч чамайг сонсохгүй байна','Зүрх минь “тийм” гэж хэлж байна',
+    'Дахиад нэг оролдоод үзэх үү?'
+  ];
+  function dodge(e){
+    if(e&&e.preventDefault) e.preventDefault();
+    var r=no.getBoundingClientRect();
+    if(!no.classList.contains('fly')){ ph.style.display='inline-block'; ph.style.width=r.width+'px'; ph.style.height=r.height+'px'; no.classList.add('fly'); }
+    var w=r.width,h=r.height,m=14,x,y,t=0;
+    do{ x=m+Math.random()*Math.max(1,innerWidth-w-2*m); y=m+Math.random()*Math.max(1,innerHeight-h-2*m); t++; }
+    while(t<14 && Math.hypot(x-lastX,y-lastY)<140);
+    lastX=x; lastY=y; no.style.left=x+'px'; no.style.top=y+'px';
+    tries++; msg.textContent=lines[(tries-1)%lines.length];
+    yes.style.transform='scale('+(1+Math.min(tries,8)*.04)+')';
+  }
+  no.addEventListener('pointerenter',dodge);
+  no.addEventListener('pointerdown',dodge);
+  no.addEventListener('touchstart',dodge,{passive:false});
+  no.addEventListener('click',dodge);
+  new IntersectionObserver(function(es){ no.style.visibility = (es[0].isIntersecting||!no.classList.contains('fly'))?'visible':'hidden'; },{threshold:0}).observe($('answer'));
+
+  yes.addEventListener('click',function(){
+    choiceInput.value = 'Тийм ээ, ярилцъя';
+    msg.textContent='Баярлалаа сэтгэл минь одоо жаахан ч гэсэн тайвширлаа ✿'; rise(34);
+    $('txt').focus({preventScroll:true});
+  });
+  think.addEventListener('click',function(){
+    choiceInput.value = 'Бодох цаг хэрэгтэй';
+    msg.textContent='Би яарахгүй хэзээ бэлэн болсон цагт чинь би хүлээж байя.'; rise(10);
+  });
+  no.addEventListener('click',function(){
+    choiceInput.value = 'Үгүй ээ, март';
+  });
+
+  /* Formspree submission handling */
+  var form = document.querySelector('form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          form.reset();
+          $('thanks').classList.add('show');
+          rise(22);
+          $('thanks').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'center'});
+        } else {
+          msg.textContent = 'Илгээхэд алдаа гарлаа. Дахин оролдоно уу.';
+        }
+      }).catch(error => {
+        msg.textContent = 'Холболтын алдаа гарлаа.';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
+ 
