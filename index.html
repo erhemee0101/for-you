@@ -68,7 +68,10 @@ button.sel{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.45)}
 .fmt p{margin:0 0 6px;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:1.15rem}
 .fmt button{font-size:1rem;padding:11px 20px;min-height:44px}
 input[type=date],input[type=time]{font-family:var(--serif);font-size:1.1rem;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:11px 20px;min-height:44px;color-scheme:dark;outline:none;transition:border-color .4s,box-shadow .4s}
-input[type=date]:focus,input[type=time]:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 30px rgba(255,255,255,.1)}
+select{font-family:var(--serif);font-size:1.1rem;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:11px 16px;min-height:44px;color-scheme:dark;outline:none;cursor:pointer}
+select option{background:#15151c;color:#f3efe9}
+.tsel{display:inline-flex;align-items:center;gap:6px}
+input[type=date]:focus,select:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 30px rgba(255,255,255,.1)}
 .msg{min-height:2.2em;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:1.1rem;margin:10px 0 0}
 .box{margin-top:46px;text-align:left}
 label{display:block;font-family:var(--serif);letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:var(--soft);margin-bottom:12px;text-align:center}
@@ -144,10 +147,18 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
         <button type="button" data-v="Утсаар">Утсаар</button>
         <button type="button" data-v="Уулзаж">Уулзаж</button>
       </div>
-      <p style="margin-top:34px">Хэдийд тохирох вэ?</p>
+    </div>
+
+    <div class="fmt" id="wbox">
+      <p id="wq">Хэдийд тохирох вэ?</p>
       <div class="btns" style="margin-top:12px">
         <input type="date" id="dpick" aria-label="Өдөр">
-        <input type="time" id="tpick" aria-label="Цаг">
+        <span class="tsel">
+          <select id="th" aria-label="Цаг"><option value="">Цаг</option></select>
+          <span>:</span>
+          <select id="tm" aria-label="Минут"><option value="">Мин</option></select>
+        </span>
+        <input type="hidden" id="tpick">
       </div>
     </div>
 
@@ -407,20 +418,22 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     all.forEach(function(x){ $(x).classList.toggle('sel',x===id); });
     $(id).textContent='Тийм, итгэлтэй байна';
     msg.textContent='Бодлоо эцэслэх бол дахин нэг товшоорой.';
-    fmt.classList.remove('show'); $('mbox').classList.remove('show');
+    fmt.classList.remove('show'); $('wbox').classList.remove('show'); $('mbox').classList.remove('show');
   }
   function pick(id,choice,text,opts){
     resetPend();
     all.forEach(function(x){ $(x).classList.toggle('sel',x===id); });
-    choiceInput.value=choice; contactInput.value=''; $('dpick').value=''; $('tpick').value='';
+    choiceInput.value=choice; contactInput.value=''; $('dpick').value=''; $('tpick').value=''; $('th').value=''; $('tm').value='';
     msg.textContent=text;
-    fmt.classList.toggle('show',!!(opts&&opts.fmt)); $('mbox').classList.add('show');
+    fmt.classList.toggle('show',!!(opts&&opts.fmt));
+    $('wbox').classList.toggle('show',!!(opts&&opts.when)); if(opts&&opts.wq) $('wq').textContent=opts.wq;
+    $('mbox').classList.add('show');
     if(opts&&opts.calm){ wither(); } else if(dead){ revive(); }
     post({choice:choice,stage:'сонголт'});
   }
 
   $('yes').addEventListener('click',function(){
-    pick('yes','Тийм ээ, ярилцъя','Баярлалаа. Хэзээ, яаж ярилцахыг чи шийд.',{fmt:true});
+    pick('yes','Тийм ээ, ярилцъя','Баярлалаа. Хэзээ, яаж ярилцахыг чи шийд.',{fmt:true,when:true,wq:'Хэдийд тохирох вэ? Хүссэн өдөр, цагаа сонгоорой.'});
     rise(14);
   });
   $('think').addEventListener('click',function(){
@@ -441,6 +454,17 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
   });
 
   /* ---------- Date & time ---------- */
+  (function(){
+    var th=$('th'), tm=$('tm'), tp=$('tpick');
+    for(var h=0;h<24;h++){ var o=document.createElement('option'); o.value=('0'+h).slice(-2); o.textContent=o.value; th.appendChild(o); }
+    for(var m=0;m<60;m+=5){ var q=document.createElement('option'); q.value=('0'+m).slice(-2); q.textContent=q.value; tm.appendChild(q); }
+    function sync(){
+      if(!th.value){ tp.value=''; return; }
+      tp.value=th.value+':'+(tm.value||'00');
+      tp.dispatchEvent(new Event('change'));
+    }
+    th.addEventListener('change',sync); tm.addEventListener('change',sync);
+  })();
   (function(){ var d=new Date(), m=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); $('dpick').min=d.getFullYear()+'-'+m+'-'+dd; })();
   function sendWhen(){
     var d=$('dpick').value, t=$('tpick').value;
