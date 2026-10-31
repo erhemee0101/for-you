@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07070b">
+<meta name="robots" content="noindex, nofollow, noarchive">
 <title>Чамд зориулав</title>
+<meta property="og:title" content="Чамд зориулав">
+<meta property="og:description" content="Хувийн хуудас">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -28,7 +31,11 @@ body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:
 .a2{right:-40vmax;bottom:-40vmax;background:radial-gradient(circle,rgba(255,186,140,.22),transparent 65%);animation:dr2 46s ease-in-out infinite alternate}
 @keyframes dr1{to{transform:translate(14vmax,10vmax)}}
 @keyframes dr2{to{transform:translate(-12vmax,-14vmax)}}
-#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity 2s ease}
+#dim{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 5s ease;background:radial-gradient(ellipse at 50% 30%,#1b1b22,#040406 72%)}
+body.dead #dim{opacity:1}
+body.dead .aur{opacity:0;transition:opacity 4s ease}
+body.dead{color:#cfc9c0}
 main{position:relative;z-index:1}
 section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12vh 24px;text-align:center}
 .wrap{max-width:640px;width:100%;text-shadow:0 0 18px #07070b,0 0 36px #07070b}
@@ -51,13 +58,17 @@ h2{font-size:clamp(1.9rem,6vw,3rem);margin-bottom:44px}
 .sep{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px auto 38px;color:var(--soft);font-size:1.1rem}
 .sep::before,.sep::after{content:"";width:min(90px,22vw);height:1px;background:linear-gradient(90deg,transparent,var(--line))}
 .sep::after{transform:scaleX(-1)}
-.btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center;margin:34px 0 8px;min-height:64px}
+.btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin:34px 0 8px}
 button{font-family:var(--serif);font-size:1.15rem;letter-spacing:.06em;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:14px 28px;min-height:48px;cursor:pointer;touch-action:manipulation;transition:background .4s,box-shadow .4s,transform .5s cubic-bezier(.3,1.4,.5,1),border-color .4s;backdrop-filter:blur(6px)}
 button:hover{background:rgba(255,255,255,.12);box-shadow:0 0 30px rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
 button:active{transform:scale(.96)}
-#yes{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4)}
-#no.fly{position:fixed;z-index:50;transition:left .38s cubic-bezier(.3,1.3,.5,1),top .38s cubic-bezier(.3,1.3,.5,1),background .4s}
-#ph{display:none}
+button.sel{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.45)}
+.fmt{display:none;margin-top:26px}
+.fmt.show{display:block;animation:fadeup 1.2s ease both}
+.fmt p{margin:0 0 6px;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:1.15rem}
+.fmt button{font-size:1rem;padding:11px 20px;min-height:44px}
+input[type=date],input[type=time]{font-family:var(--serif);font-size:1.1rem;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:11px 20px;min-height:44px;color-scheme:dark;outline:none;transition:border-color .4s,box-shadow .4s}
+input[type=date]:focus,input[type=time]:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 30px rgba(255,255,255,.1)}
 .msg{min-height:2.2em;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:1.1rem;margin:10px 0 0}
 .box{margin-top:46px;text-align:left}
 label{display:block;font-family:var(--serif);letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:var(--soft);margin-bottom:12px;text-align:center}
@@ -70,11 +81,23 @@ textarea:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 36px rgba(255,2
 .petal{position:fixed;bottom:-30px;z-index:60;pointer-events:none;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.9);animation:rise linear forwards}
 @keyframes rise{to{transform:translateY(-115vh) rotate(260deg);opacity:0}}
 footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font-family:var(--serif);font-style:italic;color:var(--soft)}
+@media (max-width:600px){
+  section{padding:9vh 20px}
+  h2{margin-bottom:26px}
+  .thought p{margin:0 0 18px}
+  .thought p.big{font-size:clamp(1.08rem,4.5vw,1.28rem);line-height:1.6}
+  .sep{margin:2px auto 20px;gap:12px}
+  .btns{gap:10px}
+  button{padding:12px 20px;font-size:1.05rem}
+  .msg{font-size:1.1rem!important}
+  textarea{min-height:120px}
+}
 @media (prefers-reduced-motion:reduce){.reveal,.w{transition:none;animation:none;opacity:1;transform:none;filter:none}.hint,.aur{animation:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <div class="aur a1"></div><div class="aur a2"></div>
+<div id="dim"></div>
 <canvas id="bg" aria-hidden="true"></canvas>
 <main>
 
@@ -92,42 +115,54 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
 <section id="thoughts">
   <div class="wrap thought">
     <h2 class="reveal">Миний <em>бодол</em></h2>
-    <p class="reveal drop">Чи надад март гэж хэлсэн. Тэр үгийг сонсоход сэтгэл хоосроод цээж хүндүүрлээд яах аа мэдэхгүй болсон.</p>
-    <p class="reveal">Чамайг таньж мэдэх тусам, чамтай өнгөрүүлсэн мөч бүхэн илүү үнэ цэнэтэй санагдаад болохгүй юм.</p>
+    <p class="big reveal drop">Чи надад март гэж хэлсэн. Тэр үгийг сонсоход сэтгэл хоосроод цээж хүндүүрлээд яах аа мэдэхгүй болсон.</p>
+    <p class="big reveal">Чамайг таньж мэдэх тусам чамтай өнгөрүүлсэн мөч бүхэн илүү үнэ цэнэтэй санагдаад болохгүй юм.</p>
     <div class="sep reveal">✿</div>
-    <p class="big reveal">Яг одоо ингээд бууж өгчихөөр харамсмаар санагдаад байна. Чамайг алдмааргүй байна.</p>
+    <p class="big reveal">Яг одоо ингээд бууж өгчихөөд чимээгүйхэн холдоод явчихвал насан туршдаа харамсах юмшиг байна. Над руу харах чиний тэр хүйтэн харц гүн бодолд автуулах юм.</p>
     <div class="sep reveal">✿</div>
-    <p class="reveal">Хэрэв би алдаа гаргасан бол уучлаарай. </p>
+    <p class="big reveal">Өөртөө итгэх итгэл маань өөрийгөө голох мэдрэмжээр солигдож өдөржин шөнөжин чиний тухай бодох боллоо.</p>
+    <div class="sep reveal">✿</div>
+    <p class="big reveal">Миний гаргасан алдаанд уучлаарай. Чамайг холдуулахгүйн тулд бас хэлж амжаагүй үгсээ хэлэхийн тулд надад ганцхан боломж олгоорой. Мэдээж чиний гаргасан шийдвэр бүрийг би хүндэтгэнэ.</p>
   </div>
 </section>
 
 <section id="answer">
   <div class="wrap">
     <h2 class="reveal">Чиний <em>хариу</em></h2>
-    <p class="reveal" style="margin:0 auto;max-width:36ch;color:var(--soft)">Ямар ч хариу байсан би хүндэтгэнэ. </p>
-    
     <div class="btns reveal">
       <button id="yes" type="button">Тийм ээ, ярилцъя</button>
       <button id="think" type="button">Бодох цаг хэрэгтэй</button>
-      <span id="ph"></span>
       <button id="no" type="button">Үгүй ээ, март</button>
     </div>
-    <p class="msg" id="msg" aria-live="polite"></p>
 
-    <!-- Formspree холбогдсон хэсэг (Сонголт болон текстийг хамт явуулна) -->
-    <div class="box reveal">
-      <form action="https://formspree.io/f/xnppbavj" method="POST">
-        <!-- Энд товч дээр дарахад сонгосон утга хадгалагдана -->
-        <input type="hidden" id="selected-choice" name="choice" value="Хариу өгөөгүй">
-        
-        <label for="txt"> Надад юу хэлмээр байна?</label>
-        <textarea id="txt" name="message" placeholder="Бодлоо чөлөөтэй бичээрэй..."></textarea>
-        <div class="center"><button id="send" type="submit">Илгээх</button></div>
-      </form>
-      <div class="thanks" id="thanks">
-        <div id="thanksText"> Энэ хүртэл уншсанд баярлалаа.</div>
+    <p class="msg" id="msg" aria-live="polite" style="margin:22px 0 0;font-size:1.25rem"></p>
+
+    <div class="fmt" id="fmt">
+      <p>Чамд хамгийн тохирох хэлбэрийг сонгоорой:</p>
+      <div class="btns" style="margin-top:14px">
+        <button type="button" data-v="Мессежээр">Мессежээр</button>
+        <button type="button" data-v="Утсаар">Утсаар</button>
+        <button type="button" data-v="Уулзаж">Уулзаж</button>
+      </div>
+      <p style="margin-top:34px">Хэдийд тохирох вэ?</p>
+      <div class="btns" style="margin-top:12px">
+        <input type="date" id="dpick" aria-label="Өдөр">
+        <input type="time" id="tpick" aria-label="Цаг">
       </div>
     </div>
+
+    <div class="fmt" id="mbox">
+      <label for="txt" style="margin-top:6px">Надад хэлмээр байгаа зүйлээ бичээрэй</label>
+      <textarea id="txt" placeholder="Юу ч бичсэн би хүлээн авна..."></textarea>
+      <div class="center"><button id="send" type="button">Илгээх</button></div>
+      <div class="thanks" id="thanks">Баярлалаа. Бичсэн зүйлийг чинь хүлээн авлаа.</div>
+    </div>
+
+    <form action="https://formspree.io/f/xnppbavj" method="POST" style="display:none">
+      <input type="hidden" id="selected-choice" name="choice" value="Хариу өгөөгүй">
+      <input type="hidden" id="selected-contact" name="contact" value="">
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+    </form>
   </div>
 </section>
 
@@ -137,6 +172,7 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
 <script>
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var calm = false;
   var $ = function(id){return document.getElementById(id)};
 
   /* ---------- Reveal ---------- */
@@ -150,7 +186,9 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     });
   });
 
-  /* ---------- Canvas: flowers, big hero bloom, sparkles, touch petals ---------- */
+  /* ---------- Canvas ---------- */
+  var dead=false, deadAt=0;
+  function wk(t){return dead?ease((t-deadAt)/5):0}
   var cv=$('bg'), ctx=cv.getContext('2d'), hero=$('hero'), W=0,H=0, flowers=[], sparks=[], parts=[], last=0, T0=0, lastMv=0;
   function rnd(a,b){return a+Math.random()*(b-a)}
   function ease(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)}
@@ -192,46 +230,69 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     if(stem<=tt+.04) return;
     var g=ease((stem-tt)/.3), p1=pt(f,tt,time), p2=pt(f,tt+.02,time);
     var ang=Math.atan2(p2[1]-p1[1],p2[0]-p1[0])+Math.PI/2+s*.85;
-    ctx.save(); ctx.translate(p1[0],p1[1]); ctx.rotate(ang); ctx.scale(f.size*.34*g,f.size*.62*g);
+    ctx.save(); ctx.translate(p1[0],p1[1]); ctx.rotate(ang); ctx.scale(f.size*.17*g,f.size*.9*g);
     ctx.beginPath(); ctx.moveTo(0,0); ctx.bezierCurveTo(.9,-.25,.7,-.8,0,-1); ctx.bezierCurveTo(-.7,-.8,-.9,-.25,0,0);
     ctx.globalAlpha=a*.16; ctx.fillStyle='#fff'; ctx.fill();
     ctx.globalAlpha=a*.4; ctx.lineWidth=.03; ctx.strokeStyle='#fff'; ctx.stroke();
     ctx.restore();
   }
+  function lilyPetal(w,c){
+    ctx.beginPath(); ctx.moveTo(0,0);
+    ctx.bezierCurveTo(w,-.18,w*.95+c,-.72,c,-1);
+    ctx.bezierCurveTo(-w*.95+c,-.72,-w,-.18,0,0);
+  }
   function bloom(x,y,R,p,tint,n,rot,time,a){
     var b0=ease((p-.2)/.3); if(b0<=0) return;
     ctx.save(); ctx.translate(x,y);
     ctx.save(); ctx.scale(R*2.3,R*2.3); ctx.globalAlpha=a*.5*b0; ctx.fillStyle=GLOW; ctx.beginPath(); ctx.arc(0,0,1,0,6.2832); ctx.fill(); ctx.restore();
-    var L=[{n:n,len:1,w:.3,al:.55,off:0},{n:n,len:.8,w:.3,al:.7,off:.5},{n:Math.max(5,n-2),len:.56,w:.32,al:.85,off:.25},{n:5,len:.34,w:.36,al:.95,off:0}];
+    /* lily: two whorls of 3 pointed, slightly curled tepals */
+    var L=[{len:1,w:.34,al:.6,off:.5,spots:false},{len:.94,w:.3,al:.85,off:0,spots:true}];
     for(var l=0;l<L.length;l++){
-      var bl=ease((p-.2-l*.045)/.3); if(bl<=0) continue;
-      var Ly=L[l], len=R*Ly.len, sx=len*(.55+.45*bl), sy=len*(.18+.82*bl);
+      var bl=ease((p-.2-l*.07)/.32); if(bl<=0) continue;
+      var Ly=L[l], len=R*Ly.len, sx=len*(.45+.55*bl), sy=len*(.15+.85*bl);
       ctx.fillStyle=PET[tint]; ctx.strokeStyle='rgba(255,255,255,.9)';
-      for(var j=0;j<Ly.n;j++){
-        ctx.save(); ctx.rotate(rot+(Ly.off+j)*6.2832/Ly.n+l*.22); ctx.scale(sx,sy);
-        petalPath(Ly.w);
+      for(var j=0;j<3;j++){
+        ctx.save(); ctx.rotate(rot+(Ly.off+j)*2.0944+l*.1); ctx.scale(sx,sy);
+        lilyPetal(Ly.w,.12);
         ctx.globalAlpha=a*Ly.al*bl; ctx.fill();
-        ctx.lineWidth=.012; ctx.globalAlpha=a*.55*bl; ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0,-.08); ctx.lineTo(0,-.85); ctx.lineWidth=.008; ctx.globalAlpha=a*.25*bl; ctx.stroke();
+        ctx.lineWidth=.012; ctx.globalAlpha=a*.6*bl; ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0,-.04); ctx.quadraticCurveTo(.03,-.5,.1,-.88); ctx.lineWidth=.009; ctx.globalAlpha=a*.35*bl; ctx.stroke();
+        if(Ly.spots){
+          ctx.fillStyle='rgba(214,96,130,.75)'; ctx.globalAlpha=a*bl*.8;
+          for(var d=0;d<9;d++){
+            var yy=-.16-d*.065, xx=((d*7+j*3)%5-2)*.035+yy*-.1;
+            ctx.beginPath(); ctx.arc(xx,yy,.011,0,6.2832); ctx.fill();
+          }
+          ctx.fillStyle=PET[tint];
+        }
         ctx.restore();
       }
     }
+    /* stamens and pistil */
     var sb=ease((p-.38)/.25);
     if(sb>0){
-      ctx.globalAlpha=a*sb; ctx.strokeStyle='rgba(255,222,150,.8)'; ctx.fillStyle='rgba(255,214,130,1)'; ctx.lineWidth=.8;
-      var sl=R*.2*sb;
-      for(var k=0;k<12;k++){
-        var an=k*6.2832/12+rot, ex=Math.cos(an)*sl, ey=Math.sin(an)*sl;
-        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(ex,ey); ctx.stroke();
-        ctx.beginPath(); ctx.arc(ex,ey,Math.max(1,R*.026),0,6.2832); ctx.fill();
+      ctx.lineCap='round';
+      for(var k=0;k<6;k++){
+        var an=k*1.0472+rot+.35, sl=R*.52*sb, ex=Math.cos(an)*sl, ey=Math.sin(an)*sl;
+        var cx=Math.cos(an+.18)*sl*.5, cy=Math.sin(an+.18)*sl*.5;
+        ctx.globalAlpha=a*sb*.9; ctx.strokeStyle='rgba(255,243,210,.9)'; ctx.lineWidth=.9;
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.quadraticCurveTo(cx,cy,ex,ey); ctx.stroke();
+        ctx.save(); ctx.translate(ex,ey); ctx.rotate(an+1.2);
+        ctx.fillStyle='rgba(206,98,44,1)'; ctx.globalAlpha=a*sb;
+        ctx.beginPath(); ctx.ellipse(0,0,Math.max(1.8,R*.075),Math.max(.9,R*.026),0,0,6.2832); ctx.fill();
+        ctx.restore();
       }
-      ctx.globalAlpha=a*sb*.9; ctx.beginPath(); ctx.arc(0,0,Math.max(1.5,R*.05),0,6.2832); ctx.fill();
+      var pa=rot-.5, pl=R*.62*sb, px=Math.cos(pa)*pl, py=Math.sin(pa)*pl;
+      ctx.globalAlpha=a*sb; ctx.strokeStyle='rgba(235,245,200,.95)'; ctx.lineWidth=1.3;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.quadraticCurveTo(Math.cos(pa-.2)*pl*.5,Math.sin(pa-.2)*pl*.5,px,py); ctx.stroke();
+      ctx.fillStyle='rgba(255,236,150,1)'; ctx.beginPath(); ctx.arc(px,py,Math.max(1.6,R*.035),0,6.2832); ctx.fill();
+      ctx.beginPath(); ctx.arc(0,0,Math.max(1.5,R*.04),0,6.2832); ctx.fillStyle='rgba(190,215,140,1)'; ctx.fill();
     }
     ctx.restore(); ctx.globalAlpha=1;
   }
   function drawFlower(f,time){
     var p=f.life/f.dur, stem=ease(p/.28);
-    var a=p>.82?Math.max(0,(1-p)/.18):1; if(a<=0) return;
+    var a=p>.82?Math.max(0,(1-p)/.18):1; var k=wk(time); a*=(1-k*.85); if(a<=0) return;
     ctx.globalAlpha=a*.5; ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=1.1; ctx.lineCap='round';
     ctx.beginPath(); var s0=pt(f,0,time); ctx.moveTo(s0[0],s0[1]);
     for(var i=1;i<=24;i++){var q=pt(f,stem*i/24,time);ctx.lineTo(q[0],q[1]);}
@@ -239,6 +300,7 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     leaf(f,.38,1,stem,time,a); leaf(f,.64,-1,stem,time,a);
     if(p<.2){ctx.globalAlpha=1;return;}
     var tip=pt(f,stem,time), R=f.size*(1+.035*Math.sin(time*.9+f.ph));
+    if(k>0){ tip[1]+=k*f.size*1.1; tip[0]+=k*f.size*.35*(f.bend>0?1:-1); R*=(1-.35*k); if(k<1&&Math.random()<.25) shed(tip[0],tip[1],f.tint); }
     bloom(tip[0],tip[1],R,p,f.tint,f.n,f.rot+time*f.spin,time,a);
   }
   function drawBig(time){
@@ -246,13 +308,13 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     var vis=1-Math.min(1,Math.abs(cy-H/2)/(H*.75)); if(vis<=.02) return;
     var tb=reduce?99:(time-T0), pb=.2+.5*ease(tb/10);
     var R=Math.min(W,H)*(W<600?.5:.44)*(1+.02*Math.sin(time*.7));
-    bloom(W/2,cy,R,pb,0,12,time*.015,time,vis*.28);
+    bloom(W/2,cy,R,pb,0,12,time*.015,time,vis*.28*(1-wk(time)));
   }
   function drawSparks(dt,time){
     for(var i=0;i<sparks.length;i++){
       var s=sparks[i]; if(!reduce){ s.y-=s.v*dt; s.x+=Math.sin(time*.5+s.ph)*.15; if(s.y<-4){s.y=H+4;s.x=rnd(0,W);} }
       var tw=.25+.55*(.5+.5*Math.sin(time*s.s+s.ph));
-      ctx.globalAlpha=tw*.7; ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.2832); ctx.fill();
+      ctx.globalAlpha=tw*.7*(1-.7*wk(time)); ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.2832); ctx.fill();
     }
     ctx.globalAlpha=1;
   }
@@ -267,8 +329,12 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     }
     ctx.globalAlpha=1;
   }
+  function shed(x,y,t){
+    if(reduce||parts.length>=140) return;
+    parts.push({x:x,y:y,vx:rnd(-20,20),vy:rnd(0,30),rot:rnd(0,6.28),vr:rnd(-2,2),s:rnd(9,18),life:0,dur:rnd(3,5),ph:rnd(0,6.28),t:t});
+  }
   function sprinkle(x,y,n){
-    if(reduce) return;
+    if(reduce||calm) return;
     for(var i=0;i<n&&parts.length<140;i++){
       var r=Math.random();
       parts.push({x:x,y:y,vx:rnd(-70,70),vy:rnd(-110,-20),rot:rnd(0,6.28),vr:rnd(-3,3),s:rnd(11,24),life:0,dur:rnd(2,3.4),ph:rnd(0,6.28),t:r<.65?0:(r<.85?1:2)});
@@ -280,10 +346,10 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     drawSparks(dt,time);
     drawBig(time);
     var maxN=W<600?8:13;
-    if(!reduce && flowers.length<maxN && Math.random()<dt*1.1) spawn(false);
+    if(!reduce && !calm && flowers.length<maxN && Math.random()<dt*1.1) spawn(false);
     for(var i=flowers.length-1;i>=0;i--){
       var f=flowers[i]; if(!reduce) f.life+=dt; drawFlower(f,time);
-      if(f.life>=f.dur) flowers.splice(i,1);
+      if(f.life>=f.dur||wk(time)>=1) flowers.splice(i,1);
     }
     drawParts(dt);
     if(!reduce) requestAnimationFrame(frame);
@@ -293,7 +359,6 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
   var init=W<600?5:9; for(var k=0;k<init;k++) spawn(true);
   if(reduce){ flowers.forEach(function(f){f.life=f.dur*.5}); frame(0);} else requestAnimationFrame(frame);
 
-  /* touch / click petals */
   addEventListener('pointerdown',function(e){ sprinkle(e.clientX,e.clientY,9); },{passive:true});
   addEventListener('pointermove',function(e){
     var n=performance.now(); if(n-lastMv<90) return; lastMv=n;
@@ -302,7 +367,7 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
 
   /* ---------- Falling petals ---------- */
   function rise(n){
-    if(reduce) return;
+    if(reduce||calm) return;
     for(var i=0;i<n;i++){
       var s=document.createElement('span'); s.className='petal'; s.textContent=Math.random()<.5?'✿':'❀';
       s.style.left=rnd(2,96)+'vw'; s.style.fontSize=rnd(14,34)+'px';
@@ -311,69 +376,93 @@ footer{position:relative;z-index:1;text-align:center;padding:40px 24px 60px;font
     }
   }
 
-  /* ---------- Buttons & Choice Tracking ---------- */
-  var no=$('no'), ph=$('ph'), yes=$('yes'), think=$('think'), msg=$('msg'), choiceInput=$('selected-choice'), tries=0, lastX=-999, lastY=-999;
-  var lines=[
-    'Хөөх, хурдан юм аа 🙂','Хүрч чадсангүй шүү','Нэг дахин оролдоод үз','Энэ товч нэг л зугтаад байна...',
-    'Үнэхээр үгүй гэж үү?','Тэр товч чамайг сонсохгүй байна','Зүрх минь “тийм” гэж хэлж байна',
-    'Дахиад нэг оролдоод үзэх үү?'
-  ];
-  function dodge(e){
-    if(e&&e.preventDefault) e.preventDefault();
-    var r=no.getBoundingClientRect();
-    if(!no.classList.contains('fly')){ ph.style.display='inline-block'; ph.style.width=r.width+'px'; ph.style.height=r.height+'px'; no.classList.add('fly'); }
-    var w=r.width,h=r.height,m=14,x,y,t=0;
-    do{ x=m+Math.random()*Math.max(1,innerWidth-w-2*m); y=m+Math.random()*Math.max(1,innerHeight-h-2*m); t++; }
-    while(t<14 && Math.hypot(x-lastX,y-lastY)<140);
-    lastX=x; lastY=y; no.style.left=x+'px'; no.style.top=y+'px';
-    tries++; msg.textContent=lines[(tries-1)%lines.length];
-    yes.style.transform='scale('+(1+Math.min(tries,8)*.04)+')';
+  /* ---------- Choices: sent immediately ---------- */
+  var form=document.querySelector('form'), msg=$('msg'), choiceInput=$('selected-choice'), contactInput=$('selected-contact'), fmt=$('fmt');
+  var all=['yes','think','no'];
+
+  function post(fields){
+    var dv=$('dpick').value, tv=$('tpick').value;
+    if(dv&&fields.date===undefined) fields.date=dv;
+    if(tv&&fields.time===undefined) fields.time=tv;
+    var fd=new FormData(); fd.append('_gotcha','');
+    for(var k in fields) fd.append(k,fields[k]);
+    try{ fetch(form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).catch(function(){}); }catch(e){}
   }
-  no.addEventListener('pointerenter',dodge);
-  no.addEventListener('pointerdown',dodge);
-  no.addEventListener('touchstart',dodge,{passive:false});
-  no.addEventListener('click',dodge);
-  new IntersectionObserver(function(es){ no.style.visibility = (es[0].isIntersecting||!no.classList.contains('fly'))?'visible':'hidden'; },{threshold:0}).observe($('answer'));
+  var pend=null, labels={no:$('no').textContent};
+  function resetPend(){ if(pend){ $(pend).textContent=labels[pend]; pend=null; } }
+  function wither(){
+    if(dead) return; calm=true; dead=true; deadAt=performance.now()/1000;
+    document.body.classList.add('dead');
+    var m=document.querySelector('meta[name=theme-color]'); if(m) m.content='#040406';
+    if(reduce){ flowers=[]; frame(performance.now()); }
+  }
+  function revive(){
+    dead=false; calm=false; document.body.classList.remove('dead');
+    var m=document.querySelector('meta[name=theme-color]'); if(m) m.content='#07070b';
+    for(var i=0;i<(W<600?4:7);i++) spawn(true);
+  }
+  function ask(id,choice,text){
+    if(pend===id){ pick(id,choice,text,{calm:true}); return; }
+    resetPend(); pend=id;
+    all.forEach(function(x){ $(x).classList.toggle('sel',x===id); });
+    $(id).textContent='Тийм, итгэлтэй байна';
+    msg.textContent='Бодлоо эцэслэх бол дахин нэг товшоорой.';
+    fmt.classList.remove('show'); $('mbox').classList.remove('show');
+  }
+  function pick(id,choice,text,opts){
+    resetPend();
+    all.forEach(function(x){ $(x).classList.toggle('sel',x===id); });
+    choiceInput.value=choice; contactInput.value=''; $('dpick').value=''; $('tpick').value='';
+    msg.textContent=text;
+    fmt.classList.toggle('show',!!(opts&&opts.fmt)); $('mbox').classList.add('show');
+    if(opts&&opts.calm){ wither(); } else if(dead){ revive(); }
+    post({choice:choice,stage:'сонголт'});
+  }
 
-  yes.addEventListener('click',function(){
-    choiceInput.value = 'Тийм ээ, ярилцъя';
-    msg.textContent='Баярлалаа сэтгэл минь одоо жаахан ч гэсэн тайвширлаа ✿'; rise(34);
-    $('txt').focus({preventScroll:true});
+  $('yes').addEventListener('click',function(){
+    pick('yes','Тийм ээ, ярилцъя','Баярлалаа. Хэзээ, яаж ярилцахыг чи шийд.',{fmt:true});
+    rise(14);
   });
-  think.addEventListener('click',function(){
-    choiceInput.value = 'Бодох цаг хэрэгтэй';
-    msg.textContent='Би яарахгүй хэзээ бэлэн болсон цагт чинь би хүлээж байя.'; rise(10);
+  $('think').addEventListener('click',function(){
+    pick('think','Бодох цаг хэрэгтэй','Хэцүү байгааг чинь ойлгож байна аа. Гэхдээ л би чамайг хүлээхэд бэлэн байна.');
+    rise(8);
   });
-  no.addEventListener('click',function(){
-    choiceInput.value = 'Үгүй ээ, март';
+  $('no').addEventListener('click',function(){
+    ask('no','Үгүй ээ, март','Ойлголоо... Гэхдээ энэ бүхэн ингэж төгсөнө гэдэг дэндүү харамсалтай юм.');
   });
 
-  /* Formspree submission handling */
-  var form = document.querySelector('form');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var data = new FormData(form);
-      fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          form.reset();
-          $('thanks').classList.add('show');
-          rise(22);
-          $('thanks').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'center'});
-        } else {
-          msg.textContent = 'Илгээхэд алдаа гарлаа. Дахин оролдоно уу.';
-        }
-      }).catch(error => {
-        msg.textContent = 'Холболтын алдаа гарлаа.';
-      });
+  Array.prototype.forEach.call(fmt.querySelectorAll('button[data-v]'),function(b){
+    b.addEventListener('click',function(){
+      Array.prototype.forEach.call(fmt.querySelectorAll('button[data-v]'),function(x){x.classList.toggle('sel',x===b)});
+      contactInput.value=b.getAttribute('data-v');
+      msg.textContent='Ойлголоо: '+contactInput.value+'. Чамд тохирсон үед нь.';
+      post({choice:choiceInput.value,contact:contactInput.value,stage:'хэлбэр'});
     });
+  });
+
+  /* ---------- Date & time ---------- */
+  (function(){ var d=new Date(), m=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); $('dpick').min=d.getFullYear()+'-'+m+'-'+dd; })();
+  function sendWhen(){
+    var d=$('dpick').value, t=$('tpick').value;
+    if(!d&&!t) return;
+    post({choice:choiceInput.value,contact:contactInput.value,stage:'цаг'});
+    msg.textContent='Баярлалаа. Сонгосон цагийг чинь хүлээн авлаа: '+[d,t].filter(Boolean).join(' ')+'.';
   }
+  var whenT=null;
+  function queueWhen(){ clearTimeout(whenT); whenT=setTimeout(sendWhen,1200); }
+  $('dpick').addEventListener('change',queueWhen);
+  $('tpick').addEventListener('change',queueWhen);
+
+  /* ---------- Message ---------- */
+  $('send').addEventListener('click',function(){
+    var t=$('txt').value.trim();
+    if(!t){ msg.textContent='Илгээхийн өмнө юм бичнэ үү.'; return; }
+    var b=$('send'); b.disabled=true;
+    post({choice:choiceInput.value,contact:contactInput.value,message:t,stage:'мессеж'});
+    $('txt').value=''; $('thanks').classList.add('show'); rise(10);
+    setTimeout(function(){ b.disabled=false; },2500);
+  });
 })();
 </script>
 </body>
 </html>
- 
